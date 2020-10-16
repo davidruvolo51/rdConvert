@@ -1,0 +1,22 @@
+Package: rdConvert
+Title: Convert Rd files to Markdown files loaded with YAML
+Version: 0.0.1
+Authors@R: 
+    person(given = "David",
+           family = "Ruvolo",
+           role = c("aut", "cre"),
+           email = "dcruvolo@example.com",
+           comment = c(ORCID = "0000-0002-5745-5298"))
+Description: As R6 class for converting Rd files to markdown with YAML headers. This may be useful if you wish to use package documentation in static site generators outside of the R ecosystem (e.g., React, Vue, Svelte, Gatsby, etc.). By default, Rd files are rendered into their own directory with an independent `index.md` file. The Rd name is parsed and set as the child directory name.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    dplyr,
+    Rd2md,
+    magrittr,
+    cli,
+    Rd2roxygen,
+    R6

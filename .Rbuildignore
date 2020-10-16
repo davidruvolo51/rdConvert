@@ -1,0 +1,5 @@
+^dev$
+^\.pkgbump\.json$
+^package\.json$
+^rdConvert\.code-workspace$
+^README\.md$

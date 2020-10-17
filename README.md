@@ -23,16 +23,23 @@ This workflow is desired for existing or active package development projects.
 To get started, create a new instance of `convert` and set a destination directory (i.e., where the markdown files will be written).
 
 ```r
-myPkg <- rdConvert::convert$new(destDir = "gatsby/src/pages/")
+myPkg <- rdConvert::convert$new(dest_dir = "gatsby/src/pages/")
 ```
+
+By default, all output files are written to markdown format using the same filename as the Rd file. You can also set the output file format using the `file_format` argument. You can use either `md` or `mdx`.
+
+```r
+myPkg <- rdConvert::convert$new(dest_dir = "gatsby/src/pages/", file_format = "mdx)
+```
+
 
 ### 2. Define entry and output points
 
-Next, run `$set_entries`. This will collate the entry and output points based on Rd file names. Use `$files` to view the result.
+Next, run `$set_entries`. This will collate the entry and output points based on Rd file names. Use `$entries` to view the result.
 
 ```r
 myPkg$set_entries()   # build paths
-myPkg$files           # view
+myPkg$entries         # view
 ```
 
 ### 3. Validate and Create Output Points
@@ -42,33 +49,6 @@ When you have confirmed the entry and destination points, create the destination
 ```r
 myPkg$set_destinations()
 ```
-
-By default, man files are converted into individual child directories. (This is to align with Gatsby projects.) For example, suppose there was a file `my_function.Rd` in the `man` directory and the destination point is `src/pages`. This function will create `src/pages/my_function` and convert the Rd file to `index.md`.
-
-```
-# project structure: pre-Rd conversion
-+ my_package / 
-    - man /
-        + my_function.Rd
-    - R /
-        + my_function.R
-    DESCRIPTION
-    NAMESPACE
-
-# project structre: post Rd conversion
-+ my_package / 
-    - man /
-        + my_function.Rd
-    - R /
-        + my_function.R
-    - src / 
-        - pages /
-            - my_function /
-                + index.md
-    DESCRIPTION
-    NAMESPACE
-```
-
 
 ### 4. Convert Rd to Md
 
@@ -91,9 +71,7 @@ myPkg$add_yaml()
 This package is experimental and will likely change. I would like to add the following features.
 
 - The ability to customize the YAML
-- Improve formatting of Rd content (specifically markdown tables)
+- [x] Improve formatting of Rd content (specifically markdown tables)
 - Improve directory and file validation
-- Investigate / integrate markdown formatters (from NPM?)
+- [x] Investigate / integrate markdown formatters (wrote basic regex)
 - Customize the destination structure
-
-Depending on your preferred text editor / IDE, a markdown formatter could be helpful for further file optimizations. 

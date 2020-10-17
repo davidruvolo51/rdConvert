@@ -7,17 +7,15 @@
 #'
 #' @export
 create_destinations <- function(x) {
-    cli::cli_alert_info("Validating path {.val {x}}")
+    cli::cli_alert_info("Validating path {.path {x}}")
     paths <- strsplit(x, "/")[[1]]
     for (n in seq_len(length(paths))) {
         p <- paste0(paths[1:n], collapse = "/")
         if (dir.exists(p)) {
-            cli::cli_alert_success("Path {.val {p}} exists")
+            cli::cli_alert_success("{.path {p}} exists")
         }
         if (!dir.exists(p)) {
-            cli::cli_alert_warning(
-                "Initialized path {.val {p}} that did not exist"
-            )
+            cli::cli_alert_warning("Created {.path {p}}")
             dir.create(p)
         }
     }

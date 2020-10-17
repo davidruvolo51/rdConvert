@@ -24,11 +24,13 @@ The entry point will always be \code{man}.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{entry}}{path to Rd files}
+\item{\code{entry_dir}}{path to Rd files}
 
-\item{\code{destDir}}{output directory}
+\item{\code{dest_dir}}{output directory}
 
-\item{\code{files}}{list of entry files and output paths}
+\item{\code{entries}}{list of entry files and output paths}
+
+\item{\code{file_format}}{save file as md or mdx}
 }
 \if{html}{\out{</div>}}
 }
@@ -49,13 +51,15 @@ The entry point will always be \code{man}.
 \subsection{Method \code{new()}}{
 Create a new converter
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$new(destDir = "src/pages")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{convert$new(dest_dir = "src/pages", file_format = "md")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{destDir}}{output directory for markdown files}
+\item{\code{dest_dir}}{output directory for markdown files}
+
+\item{\code{file_format}}{save file as md or mdx}
 }
 \if{html}{\out{</div>}}
 }

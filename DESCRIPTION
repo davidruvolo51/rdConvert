@@ -1,6 +1,6 @@
 Package: rdConvert
 Title: Convert Rd files to Markdown files loaded with YAML
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     person(given = "David",
            family = "Ruvolo",

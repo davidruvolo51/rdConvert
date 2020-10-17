@@ -2,9 +2,9 @@
 #' FILE: dev.R
 #' AUTHOR: David Ruvolo
 #' CREATED: 2020-10-16
-#' MODIFIED: 2020-10-16
+#' MODIFIED: 2020-10-17
 #' PURPOSE: pkg management
-#' STATUS: in.progress
+#' STATUS: working; ongoing
 #' PACKAGES: usethis
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
@@ -32,14 +32,14 @@ devtools::check()
 
 #' ~ 1a ~
 #' Tests
-#' devtools::load_all()
-#' system("rm -rf dev/test-site/")
-#' myPkg <- convert$new(destDir = "dev/test-site/src/pages")
-#' myPkg$set_entries()
-#' myPkg$files
-#' myPkg$set_destinations()
-#' myPkg$convert_rds()
-#' myPkg$add_yaml()
+devtools::load_all()
+system("rm -rf dev/test-site/")
+
+myPkg <- convert$new(dest_dir = "dev/test-site/")
+myPkg$set_entries()
+myPkg$set_destinations()
+myPkg$convert_rds()
+myPkg$add_yaml()
 
 #'//////////////////////////////////////
 
@@ -47,7 +47,7 @@ devtools::check()
 #' Misc Config
 
 pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
-pkgbump::pkgbump(version = "0.0.2")
+pkgbump::pkgbump(version = "0.0.3")
 
 usethis::use_build_ignore(
     files = c(

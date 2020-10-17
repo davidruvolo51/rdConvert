@@ -1,18 +1,15 @@
 ---
 title: “Format YAML Text”
-subtitle: 
+description: 
 date: “2020-10-17”
 keywords: ['']
 ---
-
 
 # `format_yaml_text`: Format YAML Text
 
 ## Description
 
-
- Render and format Rd text to markdown
-
+Render and format Rd text to markdown
 
 ## Usage
 
@@ -20,10 +17,9 @@ keywords: ['']
 format_yaml_text(x)
 ```
 
-
 ## Arguments
 
-Argument      |Description
-------------- |----------------
-```x```     |     an Rd string
+| Argument | Description |
+| -------- | ----------- |
+| `x` | an Rd string |
 

@@ -1,3 +1,7 @@
+<!-- badges: start -->
+![GitHub package.json version](https://img.shields.io/github/package-json/v/davidruvolo51/rdConvert?color=ACECF7&label=version&logo=R)
+<!-- badges: end -->
+
 # rdConvert
 
 `rdConvert` is a workflow for converting and preparing `Rd` files for use in web frameworks outside the R ecosystem. For example, [Gatsby](https://www.gatsbyjs.com), [Svelte](https://svelte.dev), or [Vue.js](https://vuejs.org). This allows you to integrate R package documentation into your existing projects or workflows.
@@ -31,7 +35,42 @@ myPkg$set_entries()   # build paths
 myPkg$files           # view
 ```
 
-### 3. Convert Rd to Md
+### 3. Validate and Create Output Points
+
+When you have confirmed the entry and destination points, create the destination paths. 
+
+```r
+myPkg$set_destinations()
+```
+
+By default, man files are converted into individual child directories. (This is to align with Gatsby projects.) For example, suppose there was a file `my_function.Rd` in the `man` directory and the destination point is `src/pages`. This function will create `src/pages/my_function` and convert the Rd file to `index.md`.
+
+```
+# project structure: pre-Rd conversion
++ my_package / 
+    - man /
+        + my_function.Rd
+    - R /
+        + my_function.R
+    DESCRIPTION
+    NAMESPACE
+
+# project structre: post Rd conversion
++ my_package / 
+    - man /
+        + my_function.Rd
+    - R /
+        + my_function.R
+    - src / 
+        - pages /
+            - my_function /
+                + index.md
+    DESCRIPTION
+    NAMESPACE
+```
+
+
+### 4. Convert Rd to Md
 
 Then, `$convert_rds` will convert Rd files to markdown using the paths defined in the previous step.
 
@@ -39,7 +78,7 @@ Then, `$convert_rds` will convert Rd files to markdown using the paths defined i
 myPkg$convert_rds()
 ```
 
-### 4. Add YAML
+### 5. Add YAML
 
 Lastly, you can add a YAML to each file. This is useful if for blog generators (e.g., Gatsby).
 
@@ -55,6 +94,6 @@ This package is experimental and will likely change. I would like to add the fol
 - Improve formatting of Rd content (specifically markdown tables)
 - Improve directory and file validation
 - Investigate / integrate markdown formatters (from NPM?)
-- Customize the destination structure: by default, files are rendered into `rd_file_name/index.md`. For example, if you have a `Rd` file named `my_function.Rd`, the output path would be `my_function/index.md`. (I decided to align the output folder structure with Gatsby blog project. Perhaps this could be modified post `$set_entries`.)
+- Customize the destination structure
 
 Depending on your preferred text editor / IDE, a markdown formatter could be helpful for further file optimizations. 

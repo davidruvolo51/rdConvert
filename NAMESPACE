@@ -2,5 +2,11 @@
 
 export("%>%")
 export(convert)
+export(create_destinations)
+export(format)
+export(format_path)
+export(format_rd_path)
+export(format_yaml_keywords)
+export(format_yaml_text)
 import(dplyr)
 importFrom(magrittr,"%>%")

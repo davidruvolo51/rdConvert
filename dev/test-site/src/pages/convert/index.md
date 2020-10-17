@@ -1,7 +1,7 @@
 ---
 title: “Rd to Md Workflow”
 subtitle: “Convert Rd files to Markdown files”
-date: “2020-10-16”
+date: “2020-10-17”
 keywords: ['convert', 'markdown', 'rd']
 ---
 
@@ -32,10 +32,7 @@ keywords: ['convert', 'markdown', 'rd']
 ## Examples
 
 ```r 
- myPackage <- rdConvert$new(destDir = "./gatsby/src/pages/")
- myPackge$set_entries()
- myPackge$convert_rds()
- myPackge$add_yaml()
+ list("\n", "myPkg <- convert$new(destDir = \"./gatsby/src/pages/\")\n", "myPkg$set_entries()\n", "myPkg$convert_rds()\n", "myPkg$add_yaml()\n") 
  
  ``` 
 

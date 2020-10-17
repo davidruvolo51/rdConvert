@@ -17,6 +17,7 @@ usethis::create_package(".")
 usethis::use_package("R6")
 usethis::use_package("Rd2md")
 usethis::use_package("Rd2roxygen")
+usethis::use_package("roxygen2md")
 usethis::use_package("cli")
 usethis::use_package("dplyr")
 usethis::use_pipe()
@@ -36,6 +37,7 @@ devtools::check()
 #' myPkg <- convert$new(destDir = "dev/test-site/src/pages")
 #' myPkg$set_entries()
 #' myPkg$files
+#' myPkg$set_destinations()
 #' myPkg$convert_rds()
 #' myPkg$add_yaml()
 
@@ -45,7 +47,7 @@ devtools::check()
 #' Misc Config
 
 pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
-pkgbump::pkgbump(version = "0.0.1")
+pkgbump::pkgbump(version = "0.0.2")
 
 usethis::use_build_ignore(
     files = c(

@@ -18,15 +18,6 @@ path and file will be: \code{my_cool_function/index.md}
 
 The entry point will always be \code{man}.
 }
-\examples{
-\dontrun{
-myPkg <- convert$new(destDir = "./gatsby/src/pages/")
-myPkg$set_entries()
-myPkg$convert_rds()
-myPkg$add_yaml()
-}
-
-}
 \keyword{convert}
 \keyword{markdown}
 \keyword{rd}
@@ -45,14 +36,10 @@ myPkg$add_yaml()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{convert$new()}}
-\item \href{#method-create_paths}{\code{convert$create_paths()}}
 \item \href{#method-set_entries}{\code{convert$set_entries()}}
+\item \href{#method-set_destinations}{\code{convert$set_destinations()}}
 \item \href{#method-convert_rds}{\code{convert$convert_rds()}}
 \item \href{#method-add_yaml}{\code{convert$add_yaml()}}
-\item \href{#method-format_path}{\code{convert$format_path()}}
-\item \href{#method-format_rd_name}{\code{convert$format_rd_name()}}
-\item \href{#method-format_yaml_keywords}{\code{convert$format_yaml_keywords()}}
-\item \href{#method-format_yaml_text}{\code{convert$format_yaml_text()}}
 \item \href{#method-clone}{\code{convert$clone()}}
 }
 }
@@ -74,29 +61,22 @@ Create a new converter
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-create_paths"></a>}}
-\if{latex}{\out{\hypertarget{method-create_paths}{}}}
-\subsection{Method \code{create_paths()}}{
-Check file paths and create new dirs if applicable
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$create_paths(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{a string containing a relative file path}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-set_entries"></a>}}
 \if{latex}{\out{\hypertarget{method-set_entries}{}}}
 \subsection{Method \code{set_entries()}}{
 Set entry points and output file paths
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{convert$set_entries()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_destinations"></a>}}
+\if{latex}{\out{\hypertarget{method-set_destinations}{}}}
+\subsection{Method \code{set_destinations()}}{
+set destinitions
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{convert$set_destinations()}\if{html}{\out{</div>}}
 }
 
 }
@@ -119,74 +99,6 @@ inject YAML from Rd files into rendered markdown files
 \if{html}{\out{<div class="r">}}\preformatted{convert$add_yaml()}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-format_path"></a>}}
-\if{latex}{\out{\hypertarget{method-format_path}{}}}
-\subsection{Method \code{format_path()}}{
-remove trailing forward slash
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$format_path(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{a string containing a file path}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-format_rd_name"></a>}}
-\if{latex}{\out{\hypertarget{method-format_rd_name}{}}}
-\subsection{Method \code{format_rd_name()}}{
-remove filename from .Rd files
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$format_rd_name(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{a file name}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-format_yaml_keywords"></a>}}
-\if{latex}{\out{\hypertarget{method-format_yaml_keywords}{}}}
-\subsection{Method \code{format_yaml_keywords()}}{
-Collapse Rd keywords array into JS array
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$format_yaml_keywords(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{an Rd keyword array}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-format_yaml_text"></a>}}
-\if{latex}{\out{\hypertarget{method-format_yaml_text}{}}}
-\subsection{Method \code{format_yaml_text()}}{
-Render and format Rd text to markdown
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$format_yaml_text(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{an Rd string}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

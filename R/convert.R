@@ -14,14 +14,6 @@
 #'
 #' The entry point will always be `man`.
 #'
-#' @examples
-#' \dontrun{
-#' myPkg <- convert$new(destDir = "./gatsby/src/pages/")
-#' myPkg$set_entries()
-#' myPkg$convert_rds()
-#' myPkg$add_yaml()
-#' }
-#'
 #' @keywords convert rd markdown
 #'
 #' @import dplyr
@@ -45,27 +37,7 @@ convert <- R6::R6Class(
         #' @description Create a new converter
         #' @param destDir output directory for markdown files
         initialize = function(destDir = "src/pages") {
-            self$create_paths(destDir)
-            self$destDir <- self$format_path(destDir)
-        },
-
-        #' @description Check file paths and create new dirs if applicable
-        #' @param x a string containing a relative file path
-        create_paths = function(x) {
-            cli::cli_alert_info("Validating path {.val {x}}")
-            paths <- strsplit(x, "/")[[1]]
-            for (n in seq_len(length(paths))) {
-                p <- paste0(paths[1:n], collapse = "/")
-                if (dir.exists(p)) {
-                    cli::cli_alert_success("Path {.val {p}} exists")
-                }
-                if (!dir.exists(p)) {
-                    cli::cli_alert_warning(
-                        "Initialized path {.val {p}} that did not exist"
-                    )
-                    dir.create(p)
-                }
-            }
+            self$destDir <- format_path(destDir)
         },
 
         #' @description Set entry points and output file paths
@@ -76,14 +48,14 @@ convert <- R6::R6Class(
             ) %>%
                 as.data.frame(.) %>%
                 mutate(
-                    name = self$format_rd_name(.),
+                    name = format_rd_path(.),
                     outDir = paste0(
                         self$destDir, "/",
-                        self$format_rd_name(.)
+                        format_rd_path(.)
                     ),
                     outFile = paste0(
                         self$destDir, "/",
-                        self$format_rd_name(.),
+                        format_rd_path(.),
                         "/index.md"
                     )
                 ) %>%
@@ -98,6 +70,11 @@ convert <- R6::R6Class(
                     "Failed to collate entry and output points"
                 )
             }
+        },
+
+        #' @description set destinitions
+        set_destinations = function() {
+            create_destinations(self$destDir)
         },
 
         #' @description batch convert Rd files to markdown files with YAML
@@ -125,12 +102,12 @@ convert <- R6::R6Class(
                 rd <- Rd2roxygen::parse_file(tmp_entry)
                 yaml <- c(
                     "---",
-                    paste0("title: ", self$format_yaml_text(rd$title)),
-                    paste0("subtitle: ", self$format_yaml_text(rd$value)),
+                    paste0("title: ", format_yaml_text(rd$title)),
+                    paste0("subtitle: ", format_yaml_text(rd$value)),
                     paste0("date: ", dQuote(Sys.Date())),
                     paste0(
                         "keywords: ",
-                        self$format_yaml_keywords(rd$keywords)
+                        format_yaml_keywords(rd$keywords)
                     ),
                     "---",
                     "\n"
@@ -142,38 +119,6 @@ convert <- R6::R6Class(
                 cli::cli_alert_success(
                     text = "Added yaml to {.val index.md} at {.val {tmp_out}}"
                 )
-            }
-        },
-
-        #' @description remove trailing forward slash
-        #' @param x a string containing a file path
-        format_path = function(x) {
-            if (substring(x, nchar(x)) == "/") {
-                substring(x, 1, nchar(x) - 1)
-            } else {
-                x
-            }
-        },
-        #' @description remove filename from .Rd files
-        #' @param x a file name
-        format_rd_name = function(x) {
-            gsub(".Rd", "", basename(x))
-        },
-
-        #' @description Collapse Rd keywords array into JS array
-        #' @param x an Rd keyword array
-        format_yaml_keywords = function(x) {
-            paste0("['", paste0(x, collapse = "', '"), "']")
-        },
-
-        #' @description Render and format Rd text to markdown
-        #' @param x an Rd string
-        format_yaml_text = function(x) {
-            if (!is.null(x)) {
-                p <- roxygen2md::markdownify(x)
-                dQuote(gsub("\n", "", p))
-            } else {
-                ""
             }
         }
     )

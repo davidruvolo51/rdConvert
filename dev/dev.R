@@ -32,14 +32,20 @@ devtools::check()
 
 #' ~ 1a ~
 #' Tests
-devtools::load_all()
-system("rm -rf dev/test-site/")
-
-myPkg <- convert$new(dest_dir = "dev/test-site/")
-myPkg$set_entries()
-myPkg$set_destinations()
-myPkg$convert_rds()
-myPkg$add_yaml()
+#' rm(list = ls())
+#' devtools::load_all()
+#' system("rm -rf dev/gatsby/")
+#'
+#' myPkg <- convert$new(dest_dir = "dev/gatsby/src/docs/usage", pkg_name = "test")
+#' myPkg$set_entries()
+#' myPkg$set_destinations()
+#' myPkg$convert_rds()
+#' myPkg$format_markdown()
+#' # myPkg$add_yaml()
+#'
+#' dir.create("dev/gatsby/src/config")
+#' myPkg$set_sidebar_yml()
+#' myPkg$save_sidebar_yml(path = "dev/gatsby/src/config/sidebar.yml")
 
 #'//////////////////////////////////////
 
@@ -47,7 +53,7 @@ myPkg$add_yaml()
 #' Misc Config
 
 pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
-pkgbump::pkgbump(version = "0.0.3")
+pkgbump::pkgbump(version = "0.0.4")
 
 usethis::use_build_ignore(
     files = c(

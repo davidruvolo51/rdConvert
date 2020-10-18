@@ -1,10 +1,3 @@
----
-title: “Format Leading Whitespace”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_leading_whitespace`: Format Leading Whitespace
 
 ## Description

@@ -1,10 +1,3 @@
----
-title: “Create Output Points”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `create_destinations`: Create Output Points
 
 ## Description

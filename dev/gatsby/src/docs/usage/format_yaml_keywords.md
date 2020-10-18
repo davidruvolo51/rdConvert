@@ -1,10 +1,3 @@
----
-title: “Format keywords”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_yaml_keywords`: Format keywords
 
 ## Description

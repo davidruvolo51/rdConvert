@@ -1,10 +1,3 @@
----
-title: “Formatter”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format`: Formatter
 
 ## Description

@@ -1,10 +1,3 @@
----
-title: “Format Rd File name”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_rd_path`: Format Rd File name
 
 ## Description

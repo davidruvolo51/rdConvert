@@ -24,6 +24,8 @@ The entry point will always be \code{man}.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{pkg_name}}{project name}
+
 \item{\code{entry_dir}}{path to Rd files}
 
 \item{\code{dest_dir}}{output directory}
@@ -31,6 +33,10 @@ The entry point will always be \code{man}.
 \item{\code{entries}}{list of entry files and output paths}
 
 \item{\code{file_format}}{save file as md or mdx}
+
+\item{\code{yml}}{configuration file for sidebar.yml}
+
+\item{\code{repo_url}}{address to github repo}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,7 +47,10 @@ The entry point will always be \code{man}.
 \item \href{#method-set_entries}{\code{convert$set_entries()}}
 \item \href{#method-set_destinations}{\code{convert$set_destinations()}}
 \item \href{#method-convert_rds}{\code{convert$convert_rds()}}
+\item \href{#method-format_markdown}{\code{convert$format_markdown()}}
 \item \href{#method-add_yaml}{\code{convert$add_yaml()}}
+\item \href{#method-set_sidebar_yml}{\code{convert$set_sidebar_yml()}}
+\item \href{#method-save_sidebar_yml}{\code{convert$save_sidebar_yml()}}
 \item \href{#method-clone}{\code{convert$clone()}}
 }
 }
@@ -51,15 +60,24 @@ The entry point will always be \code{man}.
 \subsection{Method \code{new()}}{
 Create a new converter
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$new(dest_dir = "src/pages", file_format = "md")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{convert$new(
+  pkg_name,
+  dest_dir = "src/docs/usage",
+  file_format = "md",
+  repo_url = NULL
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{pkg_name}}{name of the project}
+
 \item{\code{dest_dir}}{output directory for markdown files}
 
 \item{\code{file_format}}{save file as md or mdx}
+
+\item{\code{repo_url}}{address to github repo}
 }
 \if{html}{\out{</div>}}
 }
@@ -95,6 +113,16 @@ batch convert Rd files to markdown files with YAML
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-format_markdown"></a>}}
+\if{latex}{\out{\hypertarget{method-format_markdown}{}}}
+\subsection{Method \code{format_markdown()}}{
+format markdown files
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{convert$format_markdown()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-add_yaml"></a>}}
 \if{latex}{\out{\hypertarget{method-add_yaml}{}}}
 \subsection{Method \code{add_yaml()}}{
@@ -103,6 +131,42 @@ inject YAML from Rd files into rendered markdown files
 \if{html}{\out{<div class="r">}}\preformatted{convert$add_yaml()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_sidebar_yml"></a>}}
+\if{latex}{\out{\hypertarget{method-set_sidebar_yml}{}}}
+\subsection{Method \code{set_sidebar_yml()}}{
+generate sidebar yml
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{convert$set_sidebar_yml(home = TRUE, repo_url = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{home}}{display home link in sidebar}
+
+\item{\code{repo_url}}{address to github repo}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-save_sidebar_yml"></a>}}
+\if{latex}{\out{\hypertarget{method-save_sidebar_yml}{}}}
+\subsection{Method \code{save_sidebar_yml()}}{
+write yml config
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{convert$save_sidebar_yml(path)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{path for configuration file}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

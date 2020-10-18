@@ -1,10 +1,3 @@
----
-title: “Rd to Md Workflow”
-description: “Convert Rd files to Markdown files”
-date: “2020-10-17”
-keywords: ['convert', 'markdown', 'rd']
----
-
 # `convert`: Rd to Md Workflow
 
 ## Description

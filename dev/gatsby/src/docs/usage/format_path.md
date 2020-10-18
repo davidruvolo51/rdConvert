@@ -1,10 +1,3 @@
----
-title: “Format Path”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_path`: Format Path
 
 ## Description

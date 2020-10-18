@@ -1,10 +1,3 @@
----
-title: “Format Markdown Table”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_md_table`: Format Markdown Table
 
 ## Description

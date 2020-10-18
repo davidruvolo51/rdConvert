@@ -1,10 +1,3 @@
----
-title: “Format YAML Text”
-description: 
-date: “2020-10-17”
-keywords: ['']
----
-
 # `format_yaml_text`: Format YAML Text
 
 ## Description

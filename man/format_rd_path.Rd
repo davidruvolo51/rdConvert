@@ -10,5 +10,10 @@ format_rd_path(x)
 \item{x}{a file name}
 }
 \description{
-remove file extension from .Rd file names
+Remove the file extension from Rd files.
+}
+\examples{
+
+format_rd_path("man/myfile.Rd")
+
 }

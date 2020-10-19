@@ -10,5 +10,10 @@ format_path(x)
 \item{x}{a string containing a file path}
 }
 \description{
-remove trailing forward slash
+Remove trailing forward slash in file paths.
+}
+\examples{
+
+format_path("path/to/doc/")
+
 }

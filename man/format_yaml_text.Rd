@@ -10,5 +10,10 @@ format_yaml_text(x)
 \item{x}{an Rd string}
 }
 \description{
-Render and format Rd text to markdown
+Converted Rd files may not always render YAML markdown. This function
+rendered Rd into Markdown and ensures YAML is quoted.
+}
+\examples{
+format_yaml_text("This is a \\\\bold{cool} string")
+
 }

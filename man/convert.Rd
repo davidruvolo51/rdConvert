@@ -7,16 +7,113 @@
 Convert Rd files to Markdown files
 }
 \description{
-As R6 class for converting Rd files to markdown with YAML headers. This may
-be useful if you wish to use package documentation in static site generators
-outside of the R ecosystem (e.g., React, Vue, Svelte, Gatsby, etc.). By
-default, Rd files are rendered into their own directory with an independent
-\code{index.md} file. The Rd name is parsed and set as the child directory name.
+`convert` is an R6 class for converting Rd files to markdown for use in
+static site generators. This may be useful if you wish to use non-R web
+frameworks for generating package documentation or if you want to add
+you package man files to an existing web project in markdown format. This
+workflow is optimized for the Gatsby JS theme `rocket-docs`, but it can be
+used for as a generic renderer.
 
-For example, if you have the file \code{man/my_cool_function.Rd}, the output
-path and file will be: \code{my_cool_function/index.md}
+To get started, create a new instance of the converter. It is also
+recommended to convert Rd files into an existing project.
 
-The entry point will always be \code{man}.
+```r
+pkg <- rdConvert::convert$new()
+```
+
+Next, configure the convert to fit your project. The argument `site_dir` is
+used to define the base path for the static site. It is recommended to
+create a nested project within your R project. `dest_dir` is the location
+that the convert should use to save the markdown files. If you are using
+RocketDocs, this is `src/docs/usage/` (no need to supply the site_dir here).
+
+```r
+pkg$config(
+  project_name = "rdConvert",
+  site_dir = "gatsby",
+  dest_dir = "src/docs/usage/",
+  repo_name = "rdConvert",
+  repo_url = "https://github.com/davidruvolo51/rdConvert"
+)
+```
+
+If `site_dir` is not present you, `config` will through a warning. If you
+are using RocketDocs, you can set the path of the `sidebar.yml` file via the
+`sidebar_yml_path` argument. By default the location is
+`src/config/sidebar.yml`. You can adjust the configuration at any point.
+
+Next, create the entry and output points. This will collate all `man` files
+and generate the output path using the `site_dir` and `dest_dir` arguments
+defined in by the `$config` function. If you are using RocketDocs, the
+sidebar data `labels` and `links` are generated automatically.
+
+```r
+pkg$set_entries()   # build
+pkg$entries         # view
+```
+
+Once the entry and output points are created, run `$set_destinations`. This
+function will verify that all directories in a path exist. If a location
+does not exist, the folder will be created.
+
+```r
+pkg$set_destinations()
+```
+
+The returned md file may not always be perfect. There may be extra spaces
+and multiple blank lines. Table layouts may not render appropriately. The
+function `$format_markdown()` provides some surface-level formatting for
+post-converted markdown files.
+
+```r
+pkg$format_markdown()
+```
+
+If you want to generate YAML for the files, use the `$add_yaml()` function.
+This function isn't perfect. If you are using RocketDocs it will cause the
+title to render twice as it was rendered via `$convert_rds`. I'm still
+working on this feature.
+
+```r
+pkg$add_yaml()
+```
+
+If you are using RocketDocs, I've included two methods for generating the
+`sidebar.yml`. `set_sidebar_yml` will generate the markup using the
+`$entries` object. The yml configuration file can be saved using the
+`$save_sidebar_yml` function.
+
+```r
+pkg$save_sidebar_yml()
+```
+
+### Tips for Success
+
+This workflow isn't perfect, but it will help provide a basic workflow for
+exporting Rd files for use in non-R web projects. Here are some tips for
+success.
+
+- **Create static site project first**: It is a good idea to create the
+    static site before you convert the Rd files. This will ensure the
+    output paths are initiated before you build the paths.
+- **Turn of Markdown support**: While experimenting with this workflow,
+    I noticed that roxygen2 was rendering markdown. To display this,
+    use `@noMd` in your R files or disable it package wide in the
+    `DESCRIPTION >> Roxygen: list(markdown = TRUE)`.
+
+During active development, rebuilding Rd files and rerunning the steps
+outlined above, can be a bit tidious. To make this process a bit easier,
+run the method `$rebuild`. This will run `devtools::check_man` and
+`$convert_rds` and `$format_markdown`. Set `set_entries` to `TRUE` if
+you have the Rd files were added or removed. You can also auto add YAMLs
+by setting `add_yaml` to TRUE.
+
+```r
+pkg$rebuild(set_entries = TRUE, add_yaml = FALSE)
+```
+}
+\author{
+dcruvolo
 }
 \keyword{convert}
 \keyword{markdown}
@@ -24,7 +121,9 @@ The entry point will always be \code{man}.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{pkg_name}}{project name}
+\item{\code{project_name}}{project name}
+
+\item{\code{site_dir}}{location of the of the static site directory}
 
 \item{\code{entry_dir}}{path to Rd files}
 
@@ -36,14 +135,18 @@ The entry point will always be \code{man}.
 
 \item{\code{yml}}{configuration file for sidebar.yml}
 
-\item{\code{repo_url}}{address to github repo}
+\item{\code{repo_name}}{name of the repo (e.g., Github, GitLab, etc.)}
+
+\item{\code{repo_url}}{address repo (e.g., GitHub, GitLab, etc.)}
+
+\item{\code{sidebar_yml_path}}{path to RocketDocs sidebar.yml}
 }
 \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{convert$new()}}
+\item \href{#method-config}{\code{convert$config()}}
 \item \href{#method-set_entries}{\code{convert$set_entries()}}
 \item \href{#method-set_destinations}{\code{convert$set_destinations()}}
 \item \href{#method-convert_rds}{\code{convert$convert_rds()}}
@@ -51,33 +154,43 @@ The entry point will always be \code{man}.
 \item \href{#method-add_yaml}{\code{convert$add_yaml()}}
 \item \href{#method-set_sidebar_yml}{\code{convert$set_sidebar_yml()}}
 \item \href{#method-save_sidebar_yml}{\code{convert$save_sidebar_yml()}}
+\item \href{#method-rebuild}{\code{convert$rebuild()}}
 \item \href{#method-clone}{\code{convert$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new converter
+\if{html}{\out{<a id="method-config"></a>}}
+\if{latex}{\out{\hypertarget{method-config}{}}}
+\subsection{Method \code{config()}}{
+Configure a new converter
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$new(
-  pkg_name,
+\if{html}{\out{<div class="r">}}\preformatted{convert$config(
+  project_name,
+  site_dir = "gatsby",
   dest_dir = "src/docs/usage",
   file_format = "md",
-  repo_url = NULL
+  repo_name = NULL,
+  repo_url = NULL,
+  sidebar_yml_path = "src/config/sidebar.yml"
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{pkg_name}}{name of the project}
+\item{\code{project_name}}{name of the project}
 
-\item{\code{dest_dir}}{output directory for markdown files}
+\item{\code{site_dir}}{location of the static site directory}
+
+\item{\code{dest_dir}}{output directory for markdown files (excl. site dir)}
 
 \item{\code{file_format}}{save file as md or mdx}
 
-\item{\code{repo_url}}{address to github repo}
+\item{\code{repo_name}}{name of the repo (e.g., Github, GitLab, etc.)}
+
+\item{\code{repo_url}}{address repo (e.g., GitHub, GitLab, etc.)}
+
+\item{\code{sidebar_yml_path}}{path to sidebar yml config (excl. site dir)}
 }
 \if{html}{\out{</div>}}
 }
@@ -138,15 +251,13 @@ inject YAML from Rd files into rendered markdown files
 \subsection{Method \code{set_sidebar_yml()}}{
 generate sidebar yml
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$set_sidebar_yml(home = TRUE, repo_url = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{convert$set_sidebar_yml()}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{home}}{display home link in sidebar}
-
-\item{\code{repo_url}}{address to github repo}
 }
 \if{html}{\out{</div>}}
 }
@@ -157,13 +268,25 @@ generate sidebar yml
 \subsection{Method \code{save_sidebar_yml()}}{
 write yml config
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{convert$save_sidebar_yml(path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{convert$save_sidebar_yml()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-rebuild"></a>}}
+\if{latex}{\out{\hypertarget{method-rebuild}{}}}
+\subsection{Method \code{rebuild()}}{
+rebuild R man files and convert to markdown
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{convert$rebuild(entries = FALSE, yaml = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{path for configuration file}
+\item{\code{entries}}{If TRUE, entry and points will be rebuilt}
+
+\item{\code{yaml}}{If TRUE, yamls will be updated}
 }
 \if{html}{\out{</div>}}
 }

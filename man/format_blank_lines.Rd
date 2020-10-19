@@ -2,7 +2,7 @@
 % Please edit documentation in R/format.R
 \name{format_blank_lines}
 \alias{format_blank_lines}
-\title{Format sequential blank lines}
+\title{Format Sequential blank lines}
 \usage{
 format_blank_lines(x)
 }
@@ -10,5 +10,10 @@ format_blank_lines(x)
 \item{x}{a character}
 }
 \description{
-If there are two blank lines in a row, remove the second item
+In some instances, there may be more than one blank line in between
+paragraphs. This function ensures there is only 1 blank line.
+}
+\examples{
+format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
+
 }

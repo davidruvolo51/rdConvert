@@ -10,7 +10,8 @@ format_md_table(x)
 \item{x}{a string or array containing markdown}
 }
 \description{
-Fix markdown table headers, table alignments, and argument cells.
-Remove extra whitespacing and multiple backticks. Enclose rows in
-with a vertical line.
+In converted markdown files, the markup can be a bit funny and will render
+properly. This is caused by extra spaces, no spaces between column
+characters, and multiple backticks around arguments. This function cleans
+markdown tables.
 }

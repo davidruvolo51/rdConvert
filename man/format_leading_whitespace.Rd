@@ -10,5 +10,10 @@ format_leading_whitespace(x)
 \item{x}{a string from an md file}
 }
 \description{
-In many text blocks, there a leading white space is added. Remove it!
+In many text blocks, there a leading white space is added. This function
+removes it!
+}
+\examples{
+format_leading_whitespace("    This is a cool string!   ")
+
 }

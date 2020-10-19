@@ -1,11 +1,12 @@
 {
   "name": "rdConvert",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "homepage": "https://github.com/davidruvolo51/rdConvert",
   "license": "MIT",
   "scripts": {
-    "r-check": "Rscript -e 'devtools::check()'"
+    "r-check": "Rscript -e 'devtools::check()'",
+    "prep-site": "mv -f rocket-docs/public/* docs/"
   },
   "bugs": {
     "url": "https://github.com/davidruvolo51/rdConvert/issues"

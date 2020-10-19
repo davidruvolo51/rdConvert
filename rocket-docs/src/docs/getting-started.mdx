@@ -1,0 +1,36 @@
+---
+title: 'Getting started'
+description: Learn how to get started with Rocket Docs.
+---
+
+**rdConvert** is can be installed from GitHub using the devtools or remotes package.
+
+```r
+remotes::install_github("davidruvolo51/rdConvert")
+```
+
+## Getting Node and Gatsby Installed
+
+If using the [RocketSeat Gatsby Theme](https://github.com/Rocketseat/gatsby-starter-rocket-docs), you will need to install [nodejs](https://nodejs.org/en/). Follow the installation instructions on [nodejs.org](https://nodejs.org/en/). To confirm the installation, run the following command in the terminal.
+
+```shell
+node -v
+```
+
+Next, install [Gatsby](https://www.gatsbyjs.com/docs/quick-start/).
+
+```shell
+npm install -g gatsby-cli
+```
+
+Create a new RocketSeat project inside the current R project. See the [RocketSeat GitHub readme](https://github.com/Rocketseat/gatsby-starter-rocket-docs) for the latest installation instructions.
+
+```shell
+gatsby new rocket-docs https://github.com/rocketseat/gatsby-starter-rocket-docs
+```
+
+This will create a new Gatsby project inside the folder `rocket-docs` inside your R project. You can use any name you like.
+
+That's it! You are now ready to build your site.
+
+Checkout the [Convert Reference page](/usage/convert) for converting Rd files to Markdown.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/format.R
 \name{format_yaml_keywords}
 \alias{format_yaml_keywords}
-\title{Format keywords}
+\title{Format YAML keywords}
 \usage{
 format_yaml_keywords(x)
 }
@@ -10,5 +10,9 @@ format_yaml_keywords(x)
 \item{x}{an Rd keyword array}
 }
 \description{
-Collapse Rd keywords array into JS array
+Format Rd keywords (post-conversion), into a JS formatted string.
+}
+\examples{
+format_yaml_keywords(c("I", "think", "R", "is", "cool"))
+
 }

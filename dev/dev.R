@@ -2,7 +2,7 @@
 #' FILE: dev.R
 #' AUTHOR: David Ruvolo
 #' CREATED: 2020-10-16
-#' MODIFIED: 2020-10-17
+#' MODIFIED: 2020-10-19
 #' PURPOSE: pkg management
 #' STATUS: working; ongoing
 #' PACKAGES: usethis
@@ -20,7 +20,37 @@ usethis::use_package("Rd2roxygen")
 usethis::use_package("roxygen2md")
 usethis::use_package("cli")
 usethis::use_package("dplyr")
+usethis::use_package("devtools")
 usethis::use_pipe()
+
+# versioning
+pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
+pkgbump::pkgbump(version = "0.0.5")
+
+
+# build ignore
+usethis::use_build_ignore(
+    files = c(
+        "dev/",
+        "docs/",
+        "rocket-docs/",
+        "rocket-docs/.cache",
+        "rocket-docs/node_modules",
+        "rocket-docs/public",
+        "rocket-docs/src",
+        "rocket-docs/static",
+        "rocket-docs/.gitignore",
+        "rocket-docs/gatsby-config.js",
+        "rocket-docs/LICENSE",
+        "rocket-docs/package-lock.json",
+        "rocket-docs/README.md",
+        ".pkgbump.json",
+        "package.json",
+        "rdConvert.code-workspace",
+        "README.md"
+    )
+)
+
 
 #'//////////////////////////////////////
 
@@ -32,35 +62,48 @@ devtools::check()
 
 #' ~ 1a ~
 #' Tests
-#' rm(list = ls())
-#' devtools::load_all()
-#' system("rm -rf dev/gatsby/")
-#'
-#' myPkg <- convert$new(dest_dir = "dev/gatsby/src/docs/usage", pkg_name = "test")
-#' myPkg$set_entries()
-#' myPkg$set_destinations()
-#' myPkg$convert_rds()
-#' myPkg$format_markdown()
-#' # myPkg$add_yaml()
-#'
-#' dir.create("dev/gatsby/src/config")
-#' myPkg$set_sidebar_yml()
-#' myPkg$save_sidebar_yml(path = "dev/gatsby/src/config/sidebar.yml")
+devtools::load_all()
 
-#'//////////////////////////////////////
 
-#' ~ 999 ~
-#' Misc Config
+#' create a new convert
+pkg <- convert$new()
 
-pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
-pkgbump::pkgbump(version = "0.0.4")
 
-usethis::use_build_ignore(
-    files = c(
-        "dev",
-        ".pkgbump.json",
-        "package.json",
-        "rdConvert.code-workspace",
-        "README.md"
-    )
+#' configure converter
+pkg$config(
+    project_name = "rdConvert",
+    site_dir = "rocket-docs",
+    dest_dir = "src/docs/usage/",
+    repo_name = "rdConvert",
+    repo_url = "https://github.com/davidruvolo51/rdConvert",
+    sidebar_yml_path = "src/config/sidebar.yml"
 )
+
+# init nested project structure
+#" create_destinations("gatsby/src/config")
+#" file.create("gatsby/src/config/sidebar.yml")
+
+
+# create entries and view
+pkg$set_entries()
+pkg$entries
+
+
+# verify and init output paths
+pkg$set_destinations()
+
+# convert Rd files
+pkg$convert_rds()
+
+
+# format Rd
+pkg$format_markdown()
+
+
+# add yamls
+#" pkg$add_yaml()
+
+
+#' generate sidebar
+pkg$set_sidebar_yml()
+pkg$save_sidebar_yml()

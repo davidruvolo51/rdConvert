@@ -25,7 +25,7 @@ usethis::use_pipe()
 
 # versioning
 pkgbump::set_pkgbump(files = c("DESCRIPTION", "package.json"))
-pkgbump::pkgbump(version = "0.0.5")
+pkgbump::pkgbump(version = "0.0.6")
 
 
 # build ignore
@@ -33,17 +33,7 @@ usethis::use_build_ignore(
     files = c(
         "dev/",
         "docs/",
-        "rocket-docs/",
-        "rocket-docs/.cache",
-        "rocket-docs/node_modules",
-        "rocket-docs/public",
-        "rocket-docs/src",
-        "rocket-docs/static",
-        "rocket-docs/.gitignore",
-        "rocket-docs/gatsby-config.js",
-        "rocket-docs/LICENSE",
-        "rocket-docs/package-lock.json",
-        "rocket-docs/README.md",
+        "gatsby",
         ".pkgbump.json",
         "package.json",
         "rdConvert.code-workspace",
@@ -71,18 +61,16 @@ pkg <- convert$new()
 
 #' configure converter
 pkg$config(
-    project_name = "rdConvert",
-    site_dir = "rocket-docs",
+    site_dir = "gatsby",
     dest_dir = "src/docs/usage/",
     repo_name = "rdConvert",
     repo_url = "https://github.com/davidruvolo51/rdConvert",
-    sidebar_yml_path = "src/config/sidebar.yml"
+    sidebar_yml_path = "src/config/sidebar.yml",
+    ignore = c(
+        "man/pipe.Rd",
+        "man/format.Rd"
+    )
 )
-
-# init nested project structure
-#" create_destinations("gatsby/src/config")
-#" file.create("gatsby/src/config/sidebar.yml")
-
 
 # create entries and view
 pkg$set_entries()
@@ -107,3 +95,7 @@ pkg$format_markdown()
 #' generate sidebar
 pkg$set_sidebar_yml()
 pkg$save_sidebar_yml()
+
+
+#' rebuild
+pkg$rebuild()

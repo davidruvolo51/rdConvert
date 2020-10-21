@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "r-check": "Rscript -e 'devtools::check()'",
-    "prep-site": "mv -f rocket-docs/public/* docs/"
+    "prep-site": "mv -f gatsby/public/* docs/"
   },
   "bugs": {
     "url": "https://github.com/davidruvolo51/rdConvert/issues"

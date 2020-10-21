@@ -12,8 +12,8 @@ format_blank_lines(x)
 \description{
 In some instances, there may be more than one blank line in between
 paragraphs. This function ensures there is only 1 blank line.
-}
-\examples{
-format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
 
+```r
+format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
+```
 }

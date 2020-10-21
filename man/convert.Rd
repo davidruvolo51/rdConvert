@@ -84,6 +84,7 @@ If you are using RocketDocs, I've included two methods for generating the
 `$save_sidebar_yml` function.
 
 ```r
+pkg$set_sidebar_yml()
 pkg$save_sidebar_yml()
 ```
 
@@ -121,8 +122,6 @@ dcruvolo
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{project_name}}{project name}
-
 \item{\code{site_dir}}{location of the of the static site directory}
 
 \item{\code{entry_dir}}{path to Rd files}
@@ -140,6 +139,8 @@ dcruvolo
 \item{\code{repo_url}}{address repo (e.g., GitHub, GitLab, etc.)}
 
 \item{\code{sidebar_yml_path}}{path to RocketDocs sidebar.yml}
+
+\item{\code{ignore}}{Rd files to ignore}
 }
 \if{html}{\out{</div>}}
 }
@@ -165,21 +166,19 @@ dcruvolo
 Configure a new converter
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{convert$config(
-  project_name,
   site_dir = "gatsby",
   dest_dir = "src/docs/usage",
   file_format = "md",
-  repo_name = NULL,
-  repo_url = NULL,
-  sidebar_yml_path = "src/config/sidebar.yml"
+  repo_name,
+  repo_url,
+  sidebar_yml_path = "src/config/sidebar.yml",
+  ignore = NULL
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{project_name}}{name of the project}
-
 \item{\code{site_dir}}{location of the static site directory}
 
 \item{\code{dest_dir}}{output directory for markdown files (excl. site dir)}
@@ -191,6 +190,8 @@ Configure a new converter
 \item{\code{repo_url}}{address repo (e.g., GitHub, GitLab, etc.)}
 
 \item{\code{sidebar_yml_path}}{path to sidebar yml config (excl. site dir)}
+
+\item{\code{ignore}}{man files to ignore}
 }
 \if{html}{\out{</div>}}
 }

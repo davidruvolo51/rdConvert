@@ -4,15 +4,4 @@
 ^rdConvert\.code-workspace$
 ^README\.md$
 ^gatsby$
-^rocket-docs$
 ^docs$
-^rocket-docs/\.cache$
-^rocket-docs/node_modules$
-^rocket-docs/public$
-^rocket-docs/src$
-^rocket-docs/static$
-^rocket-docs/\.gitignore$
-^rocket-docs/gatsby-config\.js$
-^rocket-docs/LICENSE$
-^rocket-docs/package-lock\.json$
-^rocket-docs/README\.md$

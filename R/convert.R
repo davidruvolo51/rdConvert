@@ -80,6 +80,7 @@
 #' `$save_sidebar_yml` function.
 #'
 #' ```r
+#' pkg$set_sidebar_yml()
 #' pkg$save_sidebar_yml()
 #' ```
 #'
@@ -121,8 +122,6 @@
 convert <- R6::R6Class(
     "rd_converter",
     public = list(
-        #' @field project_name project name
-        project_name = NA,
 
         #' @field site_dir location of the of the static site directory
         site_dir = NA,
@@ -151,37 +150,44 @@ convert <- R6::R6Class(
         #' @field sidebar_yml_path path to RocketDocs sidebar.yml
         sidebar_yml_path = "src/config/sidebar.yml",
 
+        #' @field ignore Rd files to ignore
+        ignore = NA,
+
         #' @description Configure a new converter
-        #' @param project_name name of the project
         #' @param site_dir location of the static site directory
         #' @param dest_dir output directory for markdown files (excl. site dir)
         #' @param file_format save file as md or mdx
         #' @param repo_name name of the repo (e.g., Github, GitLab, etc.)
         #' @param repo_url address repo (e.g., GitHub, GitLab, etc.)
         #' @param sidebar_yml_path path to sidebar yml config (excl. site dir)
+        #' @param ignore man files to ignore
         config = function(
-            project_name,
             site_dir = "gatsby",
             dest_dir = "src/docs/usage",
             file_format = "md",
-            repo_name = NULL,
-            repo_url = NULL,
-            sidebar_yml_path = "src/config/sidebar.yml"
+            repo_name,
+            repo_url,
+            sidebar_yml_path = "src/config/sidebar.yml",
+            ignore = NULL
         ) {
 
             # validate input args
-            if (is.null(project_name)) {
-                cli::cli_alert_danger("{.arg project_name} cannot be missing")
+            if (is.null(repo_name)) {
+                cli::cli_alert_danger("{.arg repo_name} cannot be missing")
+            }
+            if (is.null(repo_name)) {
+                cli::cli_alert_danger("{.arg repo_name} cannot be missing")
             }
             if (!dir.exists(site_dir)) {
                 cli::cli_alert_warning("{.path {site_dir}} does not exist")
             }
 
             # update values
-            self$project_name <- project_name
             self$site_dir <- site_dir
             self$dest_dir <- format_path(dest_dir)
             self$sidebar_yml_path <- paste0(site_dir, "/", sidebar_yml_path)
+            self$repo_url <- repo_url
+            self$repo_name <- repo_name
 
             # validate file formats
             formats <- c("md", "mdx")
@@ -193,8 +199,11 @@ convert <- R6::R6Class(
                 )
             }
 
-            if (!is.null(repo_url)) self$repo_url <- repo_url
-            if (!is.null(repo_name)) self$repo_name <- repo_name
+            # add ignore
+            if (!is.null(ignore)) {
+                self$ignore <- ignore
+            }
+
         },
 
         #' @description Set entry points and output file paths
@@ -216,14 +225,15 @@ convert <- R6::R6Class(
                 ) %>%
                 select(., name, entry = ., outDir, outFile)
 
+            if (length(self$ignore) > 0) {
+                f <- f %>% filter(!entry %in% self$ignore)
+            }
+
             # add data yml config
             self$entries <- f %>%
                 mutate(
                     yml_label = gsub("_", " ", name) %>% tools::toTitleCase(.),
-                    yml_link = paste0(
-                        basename(outDir), "/",
-                        gsub(".md|.mdx", "", basename(outFile))
-                    )
+                    yml_link = paste0(basename(outDir), "/", name)
                 )
 
 
@@ -327,7 +337,6 @@ convert <- R6::R6Class(
         set_sidebar_yml = function() {
             config <- c(
                 "# Sidebar navigation", "",
-                # paste0("- label: '", self$project_name, "'"),
                 "- label: 'Introduction'",
                 "  link: '/'",
                 "- label: 'Getting Started'",

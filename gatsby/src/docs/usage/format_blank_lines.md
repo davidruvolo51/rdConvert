@@ -5,6 +5,10 @@
 In some instances, there may be more than one blank line in between
 paragraphs. This function ensures there is only 1 blank line.
 
+```r
+format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
+```
+
 ## Usage
 
 ```r
@@ -16,11 +20,4 @@ format_blank_lines(x)
 | Argument | Description |
 | -------- | ----------- |
 | `x` | a character |
-
-## Examples
-
-```r
-format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
-
-```
 

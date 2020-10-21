@@ -79,6 +79,7 @@ If you are using RocketDocs, I've included two methods for generating the
 `$save_sidebar_yml` function.
 
 ```r
+pkg$set_sidebar_yml()
 pkg$save_sidebar_yml()
 ```
 

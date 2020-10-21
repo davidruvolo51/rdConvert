@@ -15,7 +15,7 @@
     - label: 'Format Leading Whitespace'
       link: '/usage/format_leading_whitespace'
     - label: 'Format Md Table'
-      link: '/usage/format_table'
+      link: '/usage/format_md_table'
     - label: 'Format Path'
       link: '/usage/format_path'
     - label: 'Format Rd Path'
@@ -24,10 +24,6 @@
       link: '/usage/format_yaml_keywords'
     - label: 'Format Yaml Text'
       link: '/usage/format_yaml_text'
-    - label: 'Format'
-      link: '/usage/format'
-    - label: 'Pipe'
-      link: '/usage/pipe'
 - label: Community
   items:
     - label: 'rdConvert'

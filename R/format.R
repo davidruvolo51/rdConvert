@@ -118,12 +118,14 @@ format_leading_whitespace <- function(x) {
 #' In some instances, there may be more than one blank line in between
 #' paragraphs. This function ensures there is only 1 blank line.
 #'
+#' ```r
+#' format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
+#' ```
+#'
 #' @param x a character
 #'
-#' @examples
-#' format_blank_lines(c("This has", "", "", "", "multiple", "", "","", "", "blank lines"))
-#'
 #' @export
+#' @noMd
 format_blank_lines <- function(x) {
     counter <- 0
     rm_indices <- c()
